@@ -1,6 +1,6 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using System.Diagnostics;
 
 namespace EmployeeDataManager
 {
@@ -17,7 +17,7 @@ namespace EmployeeDataManager
             host.Run();                                             // запус хоста
 
             // хост запущен, все входящие HTTP запросы прослушиваются
-            Debug.WriteLine("DEBUG::PROGRAM::MAIN::HOST::START");
+            Console.WriteLine("DEBUG::PROGRAM::MAIN::HOST::START");
         }
 
         // статический метод для создания и настройки объекта IHsotBuilder

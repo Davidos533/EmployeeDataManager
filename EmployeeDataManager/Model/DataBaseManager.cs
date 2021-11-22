@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
-using System.Diagnostics;
 using EmployeeDataManager.Model;
 
 namespace EmployeeDataManager
@@ -24,17 +23,26 @@ namespace EmployeeDataManager
             // получнеие дериктории исполняемой сборки
             currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             dataBasePath=$"{currentDirectory}/data/EmployeesDataBase.db";                       // получение пути к БД
+            CheckDataBaseDirectory();
             CreateNewDataBase();                                                                // создание файла БД
+            CreateDataBaseTables();                                                             // создание таблицы в БД
+        }
+        // метод для проверки наличия директории для базы данных
+        private void CheckDataBaseDirectory()
+        {
+            // если директория не существует
+            if (!Directory.Exists($"{currentDirectory}/data"))
+            {
+                Directory.CreateDirectory($"{currentDirectory}/data");     // создание директории для БД
+            }
         }
         // метод для создания файла БД
-        public bool CreateNewDataBase()
+        private bool CreateNewDataBase()
         {
             // если файл базы данных не существует
             if (!File.Exists(dataBasePath))
             {
                 SQLiteConnection.CreateFile(dataBasePath);          // создание файла базы данных
-
-                CreateDataBaseTables();                             // создание таблицы в БД
 
                 return true;
             }
