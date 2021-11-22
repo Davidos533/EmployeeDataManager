@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+@section Styles
+{
+    <link href="@Url.Content("~/css/styles.css")" rel="stylesheet" type="text/css" />
+}
+<!--Страница приветсвия пользователя-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page</title>
+    <meta charset="utf-8" />
+    <style>
+        html {
+            margin: 1vw;
+            font-family: Consolas;
+            font-size: 1.5em;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #jumpButton {
+            width: 20vw;
+            padding: 1vw;
+            height: 2vw;
+            background-color: cornsilk;
+            user-select: none;
+            text-align: center;
+            color: black;
+            line-height: 2vw;
+            border: 0.2vw solid black;
+            border-radius: 0.5vw;
+            margin-bottom: 1vw;
+        }
+
+        #jumpButton:hover 
+        {
+            background-color: darksalmon;
+        }
+
+        #backg {
+            text-align: center;
+            margin-left: 30%;
+            padding: 2.5vw;
+            width: 40%;
+            background-color: gainsboro;
+            border-radius: 10px;
+            margin-bottom: 1vw;
+        }
+
+        .startText {
+        }
+
+        #startButton {
+        }
+    </style>
+</head>
+<body>
+    <div class="startText" id="backg">Welcome to Employee data manager!</div>
+    <div id="backg"><a href="/EmployeesManager/EmployeesList"><span id="jumpButton">Start work</span></a></div>
+</body>
+</html>

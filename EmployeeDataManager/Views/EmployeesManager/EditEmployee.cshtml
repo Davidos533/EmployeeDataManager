@@ -1,0 +1,48 @@
+﻿@using EmployeeDataManager.Model
+@model Employee
+<!--Вложенная страница, использующая в качестве основы мастер страницу-->
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    ViewData["Title"] = "Edit Employee";
+}
+<form id="mainForm" method="post" action="~/EmployeesManager/EditEmployee">
+    <table cellpadding="5">
+        <tr>
+        <tr>
+            <td>Id</td>
+            <td><input name="id" style="background-color:lightgrey;" readonly value="@Model.id"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input value="@Model.Name" required name="Name" id="nameInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td><input value="@Model.Surname" required name="Surname" id="surnameInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Patronymic</td>
+            <td><input value="@Model.Patronymic"  required name="Patronymic" id="patronymicInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Birthday</td>
+            <td><input value="@Model.Birthday" pattern="(\d{2}[-\s.]){2}\d{4}" required name="Birthday" id="birthdayInput" maxlength="10"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input value="@Model.Address" required name="Address" id="addressInput" maxlength="128"></td>
+        </tr>
+        <tr>
+            <td>Group</td>
+            <td><input value="@Model.Group" required name="Group" id="groupInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Info</td>
+            <td><input value="@Model.Info" required name="Info" id="infoInput" maxlength="256"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="sbmTD"><button id="subm" type="submit" value="Add">Edit employee</button></td>
+        </tr>
+    </table>
+</form>

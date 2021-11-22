@@ -1,0 +1,195 @@
+﻿@using EmployeeDataManager.Model
+@model List<Employee>
+@{
+    // выше ^
+    // подключение простарнства имён
+    // получение модели данных, ввиде списка моделей работников
+    Layout = null;        // определение данного представления как основного не являющегося вложенным
+}
+<!--Страница для вывода списка всех сотрудников из БД-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employees List</title>
+    <meta charset="utf-8" />
+    <!--// таблица стилей-->
+    <style>
+        html
+        {
+            font-family: Consolas;
+            margin: 1vw;
+            font-size: 0.8vw;
+        }
+        a 
+        {
+            text-decoration: none;
+        }
+        table 
+        {
+            margin: auto;
+            width: 100%;
+            cursor: cell;
+        }
+        tr:not([class]):focus #idTD 
+        {
+            background-color: darkgrey;
+        }
+
+        tr:not([class]):focus 
+        {
+            background-color: darkgrey;
+        }
+        tr:not([class]):hover #idTD 
+        {
+            background-color: silver;
+        }
+        tr:not([class]):hover 
+        {
+            background-color: silver;
+        }
+        .jumpButton 
+        {
+            width: 20vw;
+            height: 2vw;
+            background-color: cornsilk;
+            user-select: none;
+            text-align: center;
+            color: black;
+            line-height: 2vw;
+            border: 0.2vw solid black;
+            border-radius: 0.5vw;
+            margin-bottom:1vw;
+        }
+        .jumpButton:hover 
+        {
+            background-color: darksalmon;
+        }
+        .tableHead 
+        {
+            background-color:darkkhaki;
+        }
+        #backg 
+        {
+            padding: 1%;
+            width: 70%;
+            height:auto;
+            background-color: gainsboro;
+            border-radius: 10px;
+            position:absolute;
+            top:1vw;
+            left:1vw;
+            z-index: 1;
+        }
+        #buttonsBlock 
+        {
+            z-index:1;
+            position: fixed;
+            left: 75%;
+            bottom: 65%;
+            padding: 1%;
+            width: 20vw;
+            background-color: gainsboro;
+            border-radius: 10px;
+        }
+        #idTD 
+        {
+            background-color: gold;
+        }
+        #birthdayCell 
+        {
+            width:10%;
+        }
+        #cancelPlane 
+        {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color:wheat;
+            min-width: 100%;
+            min-height: 1000px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body >
+    <!--// кнопка двигающаяся вместе с экраном-->
+    <div id="buttonsBlock">
+        <a href="/EmployeesManager/AddEmployee"><div class="jumpButton" id="addEmployeeButton">Add new employee</div></a>
+        <div class="jumpButton" id="editEmployeeButton">Edit selected employee</div>
+        <a href="/EmployeesManager/DeleteEmployeeRange"><div class="jumpButton" id="deleteEmployeesButton">Delete employee range</div></a>
+        <div class="jumpButton" id="deleteEmployeeButton">Delete selected employee</div>
+    </div>
+
+    <div id="cancelPlane" onclick='document.location="#_"'></div>
+
+    <!--// основа таблицы с данными из БД-->
+    <div id="backg">
+        <form method="post">
+            <table cellpadding="5" cellspacing="0" border="1">
+                <!--// шапка таблицы-->
+                <tr class="tableHead">
+                    <td>№</td>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Surname</td>
+                    <td>Patronymic</td>
+                    <td>Birthday</td>
+                    <td>Address</td>
+                    <td>Group</td>
+                    <td>Info</td>
+                </tr>
+                <!--// итератор для ведения нумерации элементов БД-->
+                @{
+                    int iter = 0;
+                }
+                @foreach (var info in Model)
+                {
+                    // опреация инкремента
+                    iter++;
+                    // строка таблицы с данными из БД
+                    <tr tabindex="0" onclick="document.location='@string.Format("#{0}",info.id)'">
+                        <td id="idTD">@iter</td>        <!--// номер элемента в БД-->
+                        <!--// вывод данных из БД-->
+                        <td>@info.id</td>               <!--// id сотрудника в БД ... и т.д.-->
+                        <td>@info.Name</td>
+                        <td>@info.Surname</td>
+                        <td>@info.Patronymic</td>
+                        <td id="birthdayCell">@info.Birthday</td>
+                        <td>@info.Address</td>
+                        <td>@info.Group</td>
+                        <td>@info.Info</td>
+                    </tr>
+                }
+            </table>
+        </form>
+    </div>
+</body>
+    <script>
+        // скрипт для переадресации на действие удаления сотрудника в том же контроллере, это дейсвтие вызвает функцию удалеия сотрудника из БД по id ...
+        // ... и делает переадресует пользователя обратно на страницу просмотра БД, таким образом сотрудник удаляется из БД а страница обновляется и предоставляет ...
+        // ... новые данные
+        var deleteButton = document.getElementById('deleteEmployeeButton');
+        var editButton= document.getElementById('editEmployeeButton');
+        var getIdFromAddressRegex = /#\d+/;
+
+
+        deleteButton.onclick = function ()
+        {
+            var employeId = window.location.href.match(getIdFromAddressRegex)[0].slice(1);
+
+
+            // переадресация в тот же контроллер в действие удаления сотрудника из БД, с добавлением id сотрудника которого нужно удалить
+            location.replace("/EmployeesManager/DeleteEmployee/" + employeId);
+        }
+        editButton.onclick = function ()
+        {
+            var employeId = window.location.href.match(getIdFromAddressRegex)[0].slice(1);
+
+            // переадресация в тот же контроллер в действие удаления сотрудника из БД, с добавлением id сотрудника которого нужно удалить
+            location.replace("/EmployeesManager/EditEmployee/" + employeId);
+        }
+    </script>
+</html>
+    

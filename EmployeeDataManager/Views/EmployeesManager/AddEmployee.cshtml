@@ -1,0 +1,43 @@
+﻿@model string
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Add Employee";
+}
+<!--Вложенная страница, использующая в качестве основы мастер страницу-->
+<form id="mainForm" method="post" action="~/EmployeesManager/AddEmployee">
+    <table cellpadding="5">
+        <tr>
+        <tr>
+            <td>Name</td>
+            <td><input placeholder="Ivan" required name="Name" id="nameInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td><input placeholder="Ivanov" required name="Surname" id="surnameInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Patronymic</td>
+            <td><input placeholder="Ivanocich" required name="Patronymic" id="patronymicInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Birthday</td>
+            <td><input pattern="(\d{2}[-\s.]){2}\d{4}" placeholder="01-01-1970" required name="Birthday" id="birthdayInput" maxlength="10"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input placeholder="Moskovskaya obl. g. Mitishy ul. Matrosova d. 7 kv. 17" required name="Address" id="addressInput" maxlength="128"></td>
+        </tr>
+        <tr>
+            <td>Group</td>
+            <td><input placeholder="System Analyst" required name="Group" id="groupInput" maxlength="32"></td>
+        </tr>
+        <tr>
+            <td>Info</td>
+            <td><input placeholder="I am Employee Ivan, and a am System Analyst worker..." required name="Info" id="infoInput" maxlength="256"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="sbmTD"><button id="subm" type="submit" value="Add">Add employee</button></td>
+        </tr>
+    </table>
+</form>

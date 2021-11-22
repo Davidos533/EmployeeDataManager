@@ -1,0 +1,10 @@
+﻿@model string
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Delete Employee Range";
+}
+<!--Вложенная страница, использующая в качестве основы мастер страницу-->
+<form id="mainForm" method="post" action="~/EmployeesManager/DeleteEmployeeRange">
+    <div><input style="width:100%;" placeholder="(Enter range like: start_id-end_id) OR (Enter id's like: first_id second_id third_id)" pattern="^(\d+-\d+)$|^(\d+\s?)+$" required id="employeesId" name="employeesId" /></div>
+    <button id="subm" type="submit" value="Add">Delete employees</button>
+</form>

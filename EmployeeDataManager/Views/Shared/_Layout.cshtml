@@ -1,0 +1,116 @@
+﻿<!--мастер страница-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8" />
+    <style>
+        html 
+        {
+            font-family: Consolas;
+            margin: 2vw;
+            font-size: 1.2vw;
+        }
+        a 
+        {
+            text-decoration: none;
+        }
+
+        tr 
+        {
+            margin-bottom: 2vw;
+        }
+
+        input {
+            width: 30vw;
+            height: 2vw;
+            border-width: 0.1vw;
+            border-radius: 0.5vw;
+            font-size: 1vw;
+            margin-bottom:1vw;
+        }
+        #backg 
+        {
+            padding:1vw;
+            margin-left: 25%;
+            width: 45vw;
+            height: 100%;
+            background-color: gainsboro;
+            border-radius: 1vw;
+        }
+
+        #subm 
+        {
+            width: 20vw;
+            height: 2vw;
+            font-size: 1vw;
+            border-width: 0.1vw;
+            background: yellow;
+            border-radius: 0.5vw;
+        }
+        #subm:hover
+        {
+            background-color:goldenrod;
+        }
+        #jumpButton
+        {
+            padding: 1vw;
+            width: 20vw;
+            height: 2vw;
+            background-color: cornsilk;
+            user-select: none;
+            text-align: center;
+            color: black;
+            line-height: 2vw;
+            border: 0.2vw solid black;
+            border-radius: 0.5vw;
+        }
+
+        #jumpButton:hover
+        {
+            background-color: darksalmon;
+        }
+
+        #message
+        {
+            margin-left: 40%;
+        }
+    </style>
+</head>
+<body>
+    <div id="backg">
+        <!--Встраиваемая часть представления-->
+        @RenderBody()
+    </div>
+    <a href="/EmployeesManager/EmployeesList"><span id="jumpButton">Back to employee list</span></a>
+    <div id="message">@ViewData["Message"]</div>
+</body>
+<script>
+    // скрипт для работы поля ввода даты рождения
+    var birthday = document.getElementById('birthdayInput');        // handle для html элемента в js
+    document.getElementById('mainForm').addEventListener("submit", mainForm);       // установка слушателя на отправку формы
+
+    var lastLength = 0;                                             // предыдущее значение длины строки поля даты рождения
+    addEventListener('input', addSymbol);                           // установка слушателя, который будет вызывать callback функцию addSymbol
+
+    // функция которая срабатывает когда пользователь что-то вводит в поле даты рождения
+    function addSymbol() {
+
+        // если длина строки стала болше предыдущей
+        if (birthday.value.length > lastLength) {
+
+            if (birthday.value.length == 2 || birthday.value.length == 5 || birthday.value.length == 6) {
+                birthday.value += '-';  // добавление разделителя
+            }
+        }
+        // иначе если длина строки стала мешьне предыдущей
+        else {
+
+            if (birthday.value.length == 3 || birthday.value.length == 5 || birthday.value.length == 6) {
+                birthday.value = birthday.value.slice(0, -1); // удаление вместе с разделителем следующего символа
+            }
+        }
+        lastLength = birthday.value.length;
+    }
+</script>
+</html>
